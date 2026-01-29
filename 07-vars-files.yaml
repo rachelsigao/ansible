@@ -1,7 +1,9 @@
 - name: variables from files
   hosts: local
   connection: local
-  vars_files: course.yaml
+  
+  vars_files: course.yaml # include vars from external file
+  
   tasks:
   - name: print course information
     ansible.builtin.debug:
