@@ -1,0 +1,16 @@
+- name: install nginx
+  hosts: dynamic_frontend
+  become: yes
+  serial: 5 # this will execute the playbook on 5 hosts at a time. This is used to avoid downtime of application. If we have 10 frontend servers, then it will execute the playbook on 5 servers and once it is done, then it will execute on remaining 5 servers. So at a time only 5 servers will be down and rest of the servers will be up and running.
+  
+  tasks:
+  - name: install nginx
+    ansible.builtin.dnf:
+      name: nginx
+      state: installed
+
+  - name: run nginx
+    ansible.builtin.service:
+      name: nginx
+      state: started
+      enabled: yes
